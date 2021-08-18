@@ -76,15 +76,19 @@ def filename(number, id):
         books_dict=json.loads(f.read())
     number = int(number)
     book=list(books_dict.keys())
-    path='books/' + str(id) + '.fb2'
-    f=open(f'{path}', 'wb')
+    
+    
     if number == 1:
+        path='books/' + str(id) + '.fb2'
         links = books_dict.get('fb2')
     elif number == 2:
+        path='books/' + str(id) + '.epub'
         links = books_dict.get('epub')
     elif number == 3:
+        path='books/' + str(id) + '.mobi'
         links = books_dict.get('mobi')
     content = requests.get(f'{links}', proxies=proxies)
+    f=open(f'{path}', 'wb')
     f.write(content.content)
     f.close
     return  path
