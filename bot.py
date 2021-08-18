@@ -5,7 +5,7 @@ import telebot
 import os
 from telebot import types
 from parcing import parcing, booknumber, filename
-bot = telebot.TeleBot("1918741680:AAG2Cvxm3US4KFigHkg3MXgHwMXSlr0cJhU") 
+bot = telebot.TeleBot("TOKEN") 
 
 links=['']*5
 def ReInt(s):
