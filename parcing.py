@@ -6,19 +6,15 @@ import json
 
 # print('Введите название книги, серию или автора')
 # text = input()
-proxies = {
-        'http':'socks5h://127.0.0.1:9150',
-        'https':'socks5h://127.0.0.1:9150'
-    }
 books_dict = {}
 links=['']*3
 
 #возврат списка книг
 def parcing(boockname, id):
     text = boockname.replace(' ', '+')
-    url = 'http://flibustahezeous3.onion/booksearch?ask=' + text
+    url = 'http://flibusta.is/booksearch?ask=' + text
 
-    req = requests.get(url, proxies=proxies)
+    req = requests.get(url)
     src = req.text
     soup = BeautifulSoup(src, 'lxml')
     content = soup.find('h3', text=re.compile('Найденные книги'))
@@ -31,7 +27,7 @@ def parcing(boockname, id):
         for item in books:
             i+=1
             item_text = str(i) + '. ' + item.text
-            item_url = 'http://flibustahezeous3.onion' + item.find('a').get('href')
+            item_url = 'http://flibusta.is' + item.find('a').get('href')
         #    print(f"{item.text}:{item_url}")
             books_dict[item_text] = item_url
         
@@ -87,7 +83,7 @@ def filename(number, id):
     elif number == 3:
         path='books/' + str(id) + '.mobi'
         links = books_dict.get('mobi')
-    content = requests.get(f'{links}', proxies=proxies)
+    content = requests.get(f'{links}')
     f=open(f'{path}', 'wb')
     f.write(content.content)
     f.close
